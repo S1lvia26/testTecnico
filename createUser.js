@@ -19,6 +19,11 @@ module.exports.createUser = async (event) => {
     TableName: process.env.DYNAMODB_CUSTOMER_TABLE,
     // create table fields
     Item: {
+      /*  It seems that DynamoDB doesn't provide a native auto-incrementing ID system like traditional RDBMS.
+          For this example a random ID is used, but of course it's not suitable for production.
+          Consider implementing a proper ID generation mechanism, such as a separate counter table,
+          or explore services like Amazon DynamoDB Auto-Increment for a more scalable solution.
+      */
       id: Math.floor(Math.random() * 1000),
       username:body.username,
       email: body.email,
