@@ -22,29 +22,32 @@ provider:
     DYNAMODB_CUSTOMER_TABLE: ${self:service}-customerTable-${sls:stage}
 
 functions:
-  createCustomer:
-  handler: createCustomer.createCustomer
+  createUser:
+  handler: createUser.createUser
   events:
     - httpApi:
         path: /
         method: post
-  getCustomers:
-  handler: getCustomers.getCustomers
+  getUserById:
+  handler: getUserById.getUserById
   events:
     - httpApi:
-        path: /customers
+        path: /userById
         method: get
-
 resources:
   Resources:
     CustomerTable:
       Type: AWS::DynamoDB::Table
       Properties:
         AttributeDefinitions:
-          - AttributeName: primary_key
-            AttributeType: S
+          - AttributeName: id
+            AttributeType: N
+          - AttributeName: username
+            AttributeType: S  
+          - AttributeName: email
+            AttributeType: S 
         BillingMode: PAY_PER_REQUEST
         KeySchema:
-          - AttributeName: primary_key
+          - AttributeName: id
             KeyType: HASH
         TableName: ${self:service}-customerTable-${sls:stage}
