@@ -2,6 +2,10 @@
 const AWS = require('aws-sdk');
 
 module.exports.getUserById = async (event) => {
+  
+  // Get userId from the path parameters of the HTTP request
+  const userId = parseInt(event.pathParameters.userId);
+  //retrieving data from the DynamoDB table
   const getParams = {
     TableName: process.env.DYNAMODB_CUSTOMER_TABLE,
     Key: {
@@ -15,7 +19,7 @@ module.exports.getUserById = async (event) => {
   if (!result.Item) {
     return {
       statusCode: 404,
-      body: JSON.stringify({ error: 'Utente non trovato' }),
+      body: JSON.stringify({ error: 'User not found' }),
     };
   }
 

@@ -32,7 +32,7 @@ functions:
   handler: getUserById.getUserById
   events:
     - httpApi:
-        path: /userById
+        path: /userById/{userId} 
         method: get
 resources:
   Resources:
